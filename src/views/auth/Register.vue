@@ -51,6 +51,7 @@
         }),
         created() {
             this.getCaptcha()
+            // this.removels()
         },
         methods: {
             getCaptcha() {
@@ -75,7 +76,7 @@
                         name: this.username,
                         password: this.password
                     }
-                    const localUser = ls.getItem('user')
+                    const localUser = this.$store.state.user
 
                     if (localUser) {
                         if (localUser.name === user.name) {
@@ -89,7 +90,7 @@
                 }
             },
             login(user) {
-                ls.setItem('user', user)
+                this.$store.dispatch('login', user)
                 this.showMsg('success', 'success')
             },
             showMsg(msg, type = 'warning') {
@@ -100,6 +101,9 @@
                 this.$nextTick(() => {
                     this.msgShow = true
                 })
+            },
+            removels() {
+                ls.removeItem('user');
             }
         }
     }
@@ -109,4 +113,7 @@
     .thumbnail { width: 170px; margin-top: 10px; cursor: pointer;}
     .thumbnail .captcha { height: 46px; background: #E1E6E8;}
     .captcha { font-size: 24px; font-weight: bold; user-select: none;}
+    .floating-box {
+        margin-top: 0px;
+    }
 </style>

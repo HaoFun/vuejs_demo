@@ -16,8 +16,12 @@
             </div>
             <div id="top-navbar-collapse" :class="['collapse', 'navbar-collapse', { in:showCollapsedNav }]">
                 <ul class="nav navbar-nav">
-                    <li v-for="(item, index ) in navList" :class="{ active: index === activeNavIndex}">
-                        <a href="#" @click="changeNavIndex(index)">{{ item  }}</a>
+                    <li v-for="(item, index ) in navList" :key="item.title" :class="{ active: index === activeNavIndex}">
+                        <router-link :to="{ path: item.link }">
+                            <span @click="changeNavIndex(index)">
+                                {{ item.title }}
+                            </span>
+                        </router-link>
                     </li>
                 </ul>
 
@@ -43,7 +47,18 @@
                     src: 'logo.png',
                     title: 'vue.js'
                 },
-                navList: ['navBar1', 'navBar2', 'navBar3', 'navBar4'],
+                navList: [
+                    {
+                        index: 0,
+                        title: 'Home',
+                        link: '/'
+                    },
+                    {
+                        index: 1,
+                        title: 'Create post',
+                        link: '/articles/create'
+                    }
+                ],
                 activeNavIndex: 0,
                 showCollapsedNav: false
             }
